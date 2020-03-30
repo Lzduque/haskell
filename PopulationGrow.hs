@@ -1,14 +1,9 @@
 -- p0, percent, aug (inhabitants coming or leaving each year), p (population to surpass)
 
 nbYear :: Int -> Double -> Int -> Int -> Int
-nbYear = countYears 1
-
-countYears :: Int -> Int -> Double -> Int -> Int -> Int
-countYears years p0 percent aug p
-    | newPop >= p = years
-    | otherwise = countYears (years + 1) newPop percent aug p
+nbYear p0 percent aug p = length . takeWhile (< p) $ iterate newPop p0
     where
-        newPop = floor $ fromIntegral p0 + (fromIntegral p0 * percent / 100) + fromIntegral aug
+        newPop pop = floor $ fromIntegral pop + (fromIntegral pop * percent / 100) + fromIntegral aug
 
 main = do
     print $ nbYear 1500 5 100 5000 -- 15
