@@ -3,9 +3,7 @@ import Data.List
 maskify :: String -> String
 maskify str = mask ++ lastFour
     where
-        splittedStr = splitAt 4 $ reverse str
-        maskPart = reverse $ snd splittedStr
-        lastFour = reverse $ fst splittedStr
+        (maskPart,lastFour) = splitAt (length str - 4) str
         mask = take (length maskPart) $ repeat '#'
 
 main = do
