@@ -1,10 +1,9 @@
 import Data.List
 
 maskify :: String -> String
-maskify str = mask ++ lastFour
+maskify str = replicate maskLength '#' ++ drop maskLength str
     where
-        (maskPart,lastFour) = splitAt (length str - 4) str
-        mask = take (length maskPart) $ repeat '#'
+        maskLength = length str - 4
 
 main = do
     print $ maskify "4556364607935616" -- "############5616"
