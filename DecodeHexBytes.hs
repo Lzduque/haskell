@@ -2,25 +2,14 @@ import Data.List.Split
 import Numeric
 
 decodeHexBytes :: [Int] -> [Int]
-decodeHexBytes xs = 
+decodeHexBytes = concat . map (\(x:xs) -> 0 : xs) . decodeCOBS []
+
+decodeCOBS :: [[Int]] -> [Int] -> [[Int]]
+decodeCOBS acc [] = acc
+decodeCOBS acc (x:xs) = decodeCOBS acc' ys
     where
-        seconde xs = tail (firstSplit xs)
-        first xs = head (firstSplit xs)
-        firstSplit xs = splitAt (point xs) xs
-        point = head
-
-
-    -- where
-        -- splitted xs = takeBytes xs : takeBytes (snd xs)
-        -- takeBytes xs = take (point xs) xs
-        -- point = head
-
--- decodeHexBytes xs = concat . map addLength $ splitted xs
---     where
---         splitted xs = splitWhen (== 0x00) $ tail xs
---         addLength xs = (length xs + 1) : xs
-
--- split the list where? before a number that is not 0
+        (chunk,ys) = splitAt x (x:xs)
+        acc' = acc ++ [chunk]
 
 main = do
     print $ map (\x -> showHex x "") $ decodeHexBytes [0x03, 0x07, 0x09, 0x02, 0x01, 0x01, 0x06, 0x02, 0x03, 0x04, 0x05, 0x06, 0x03, 0x18, 0x22]
