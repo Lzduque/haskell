@@ -1,8 +1,9 @@
 import Data.List.Split
+import Data.List (unfoldr)
 import Numeric
 
 decodeHexBytes :: [Int] -> [Int]
-decodeHexBytes = concat . map (\(x:xs) -> 0 : xs) . decodeCOBS []
+decodeHexBytes = concat . map (\(x:xs) -> 0 : xs) . decodeCOBS'
 
 decodeCOBS :: [[Int]] -> [Int] -> [[Int]]
 decodeCOBS acc [] = acc
