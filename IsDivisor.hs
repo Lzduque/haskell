@@ -1,9 +1,10 @@
 divisors :: (Show a, Integral a) => a -> Either String [a]
 divisors a
-    | hasDivisors a /= [] = Right $ hasDivisors a
+    | ds /= [] = Right ds
     | otherwise = Left $ show a ++ " is prime"
     where
-        hasDivisors a = filter ((==0) . rem a) [2 .. a `div` 2]
+        ds = [x | x <- [2 .. a `div` 2], (a `rem` x) == 0]
+        -- hasDivisors a = filter ((==0) . rem a) [2 .. a `div` 2]
         
 
 main = do 
