@@ -1,19 +1,18 @@
 maxRot :: Integer -> Integer
-maxRot n -- your code
+maxRot = fromIntegral . maximum . map unDigits . rotateLeft . digits
     where
-        digits = map (\x -> read [x] :: Int) (show n)
-        ln = length digits - 1
-        firstNum = n
-        secondNum = (drop 1 digits) ++ (take 1 digits)
-        thirdNum = (take 1 secondNum) ++ (slice 2 ln secondNum) ++ (slice 1 1 secondNum)
-        fourthNum = (take 2 thirdNum) ++ (slice 3 ln thirdNum) ++ (slice 2 2 thirdNum)
-        fifthNum = (take 3 fourthNum) ++ (slice 4 ln fourthNum) ++ (slice 3 3 fourthNum)
+        digits y = map (\x -> read [x] :: Int) (show y)
+        unDigits ys = read (concat (map show ys)) :: Int
 
-slice :: Int -> Int -> [a] -> [a]
-slice from to xs = take (to - from + 1) (drop from xs)
+rotateLeft :: [Int] -> [[Int]]
+rotateLeft [] = []
+rotateLeft (x:xs) = (x:xs) : (map (\ys -> head r : ys) $ rotateLeft (tail r))
+    where
+        r = rotate (x:xs)
+        rotate y = tail y ++ [head y]
 
 main = do
-    print $ maxRot 38458215 85821534
-    print $ maxRot 195881031 988103115
-    print $ maxRot 896219342 962193428
-    print $ maxRot 69418307 94183076
+    print $ maxRot 38458215 -- 85821534
+    print $ maxRot 195881031 -- 988103115
+    print $ maxRot 896219342 -- 962193428
+    print $ maxRot 69418307 -- 94183076
