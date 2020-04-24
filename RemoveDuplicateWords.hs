@@ -1,8 +1,7 @@
-import Data.List.Split (splitOn)
-import Data.Set (fromList, toList)
+import Data.List (nub)
 
 removeDuplicateWords :: String -> String
-removeDuplicateWords = unwords . toList . fromList . splitOn " "
+removeDuplicateWords = unwords . nub . words
 
 main = do
     print $ removeDuplicateWords "alpha beta beta gamma gamma gamma delta alpha beta beta gamma gamma gamma delta" -- "alpha beta gamma delta"
