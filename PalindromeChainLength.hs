@@ -1,12 +1,9 @@
 import Data.List.Split (divvy)
 
 palindromeChainLength :: Integer -> Integer
-palindromeChainLength x = getPalindrome (x, 0)
-
-getPalindrome :: (Integer, Integer) -> Integer
-getPalindrome (x,c)
-    | x == y = c
-    | otherwise = getPalindrome ((x + y), c + 1)
+palindromeChainLength x
+    | x == y = 0
+    | otherwise = 1 + palindromeChainLength (x + y)
     where
         y = read . concat . reverse . divvy 1 1 $ show x :: Integer
 
