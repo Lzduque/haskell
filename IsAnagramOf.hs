@@ -3,11 +3,10 @@ import Data.List (sort)
 
 isAnagramOf :: String -> String -> Bool
 isAnagramOf test original
-    | first == second = True
+    | normalize test == normalize original = True
     | otherwise = False
     where
-        first = sort $ map toLower test
-        second = sort $ map toLower original
+        normalize xs = sort $ map toLower xs
 
 
 main = do
