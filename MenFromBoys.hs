@@ -1,10 +1,13 @@
 import Data.List(nub, sort)
 
+-- menFromBoys :: [Int] -> [Int]
+-- menFromBoys xs = sort evens ++ reverse (sort odds)
+--     where
+--         evens = nub $ filter even xs
+--         odds = nub $ filter odd xs
+
 menFromBoys :: [Int] -> [Int]
-menFromBoys xs = sort evens ++ reverse (sort odds)
-    where
-        evens = nub $ filter even xs
-        odds = nub $ filter odd xs
+menFromBoys xs = nub $ [x | x <- sort xs, even x] ++ [x | x <- reverse $ sort xs, odd x]
 
 main = do
     print $ menFromBoys [7,3,14,17] -- [14,17,7,3]
