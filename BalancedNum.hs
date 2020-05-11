@@ -2,20 +2,16 @@ import Data.List.Split (divvy)
 
 balancedNum :: Int -> String
 balancedNum x 
-    | isOdd && isBalanced lOdd = "Balanced"
-    | isEven && isBalanced lEven = "Balanced"
+    | isBalanced = "Balanced"
     | otherwise = "Not Balanced"
     where
         list = divvy 1 1 $ show x
-        isOdd = odd $ length list
-        isEven = even $ length list
-        lOdd = round ((fromIntegral $ (length list - 1)) /2)
-        lEven = round ((fromIntegral $ (length list - 2)) /2)
-        left l = take l list
-        right l = take l (reverse list)
-        sumL l = sum $ map (read :: String -> Int) (left l)
-        sumR l = sum $ map (read :: String -> Int) (right l)
-        isBalanced l = sumL l == sumR l
+        l = (length list - 1) `div` 2
+        left = take l list
+        right = take l (reverse list)
+        sumL = sum $ map (read :: String -> Int) left
+        sumR = sum $ map (read :: String -> Int) right
+        isBalanced = sumL == sumR
 
 main = do
     print $ balancedNum 7         -- "Balanced"
