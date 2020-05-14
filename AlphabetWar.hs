@@ -2,18 +2,20 @@ import Data.List.Split (divvy)
 
 alphabetWar :: String -> String
 alphabetWar fight 
-    | pointsLeft > pointsRight = "Left side wins!"
-    | pointsRight > pointsLeft = "Right side wins!"
+    | points > 0 = "Left side wins!"
+    | points < 0 = "Right side wins!"
     | otherwise = "Let's fight again!"
     where
-        fighters = divvy 1 1 fight
-        left =  [("w",4),("p",3),("b",2),("s",1)]
-        right = [("m",4),("q",3),("d",2),("z",1)]
-        lookup x = filter (\(a,b) -> x == a)
-        onlyLeft = concat $ map (\x -> lookup x left) fighters
-        onlyRight = concat $ map (\x -> lookup x right) fighters
-        pointsLeft = sum $ map (\(a,b) -> b) onlyLeft
-        pointsRight = sum $ map (\(a,b) -> b) onlyRight
+        point 'w' = 4
+        point 'p' = 3
+        point 'b' = 2
+        point 's' = 1
+        point 'm' = -4
+        point 'q' = -3
+        point 'd' = -2
+        point 'z' = -1
+        point _ = 0
+        points = sum $ map point fight
 
 main = do
     print $ alphabetWar "z"        -- "Right side wins!"
