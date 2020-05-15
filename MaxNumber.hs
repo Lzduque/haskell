@@ -1,8 +1,8 @@
-import Data.List.Split (divvy)
+import Data.List.Split (chunksOf)
 import Data.List (sort)
 
 maxNumber :: Int -> Int
-maxNumber = read . concat . reverse . sort . divvy 1 1 . show
+maxNumber = read . concat . reverse . sort . chunksOf 1 . show
 
 main = do
     print $ maxNumber 213 -- 321
