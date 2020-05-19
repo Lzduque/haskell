@@ -1,17 +1,11 @@
-import Data.List ((\\), nub)
+import Data.List ((\\), nub, tails, inits)
 
 containAllRots :: String -> [String] -> Bool
 containAllRots strng arr
-  | rotations \\ arr == [] = True
-  | otherwise = False
+  | rotations \\ arr /= [] = False
+  | otherwise = True
     where
-      l = (length strng) - 1
-      rotations = nub $ rotate l strng
-
-rotate :: Int -> String -> [String]
-rotate 0 ys = [ys]
-rotate _ [] = []
-rotate times xs = xs : rotate (times - 1) (tail xs ++ [head xs])
+      rotations = nub $ zipWith (++) (tails strng) (inits strng)
 
 main = do
   print $ containAllRots "bsjq" ["bsjq", "qbsj", "sjqb", "twZNsslC", "jqbs"] -- True
