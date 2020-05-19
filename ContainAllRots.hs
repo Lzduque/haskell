@@ -1,4 +1,4 @@
-import Data.List ((\\))
+import Data.List ((\\), nub)
 
 containAllRots :: String -> [String] -> Bool
 containAllRots strng arr
@@ -6,7 +6,7 @@ containAllRots strng arr
   | otherwise = False
     where
       l = (length strng) - 1
-      rotations = rotate l strng
+      rotations = nub $ rotate l strng
 
 rotate :: Int -> String -> [String]
 rotate 0 ys = [ys]
@@ -18,3 +18,4 @@ main = do
   print $ containAllRots "" [] -- True
   print $ containAllRots "" ["bsjq", "qbsj"] -- True
   print $ containAllRots "XjYABhR" ["TzYxlgfnhf", "yqVAuoLjMLy", "BhRXjYA", "YABhRXj", "hRXjYAB", "jYABhRX", "XjYABhR", "ABhRXjY"] -- False
+  print $ containAllRots "12341234" ["DIeF","IeFD","12341234","41234123","34123412","23412341"] -- True
