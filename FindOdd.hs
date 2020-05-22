@@ -2,10 +2,10 @@
 --   odd number of times. The tests will always
 --   provide such a number, and the list will
 --   always contain at least one element.
+import Data.List (nub,sort)
+
 findOdd :: [Int] -> Int
-findOdd xs = head . map fst $ filter (\(a,b) -> odd b) ocurrences
-    where
-        ocurrences = nub . map (\x -> (x, length $ filter (\y -> y == x) xs)) $ sort xs 
+findOdd xs = head [x | x <- xs, odd . length $ filter (== x) xs]
 
 main = do
     print $ findOdd [1,2,1,4,2,3,4,2,3] -- 2
