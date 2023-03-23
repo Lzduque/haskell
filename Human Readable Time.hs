@@ -6,17 +6,14 @@
 -- The maximum time never exceeds 359999 (99:59:59)
 
 humanReadable :: Int -> String
-humanReadable x
-  | x <= 59 = "00:00:" ++ to2Digits x
-  | otherwise = evalMinutes x
+humanReadable s = to2Digits hours ++ ":" ++ to2Digits minutes ++ ":" ++ to2Digits seconds
   where
+    hours = s `div` 3600
+    minutes = (s `rem` 3600) `div` 60
+    seconds = (s `rem` 3600) `rem` 60
     to2Digits n
       | n < 10 = "0" ++ show n
       | otherwise = show n
-    evalMinutes s
-      | (s `div` 60) <= 59 = "00:" ++ to2Digits (s `div` 60) ++ ":" ++ to2Digits (s `rem` 60)
-      | otherwise = evalHours s
-    evalHours h = to2Digits (((h `div` 60) - 59) `div` 60) ++ to2Digits (h `div` 60) ++ ":" ++ to2Digits (h `rem` 60)
 
 main = do
   print $ humanReadable 0 -- " should be 00:00:00"
