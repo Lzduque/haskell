@@ -15,7 +15,7 @@
 
 kangaroo :: Integer -> Integer -> Integer -> Integer -> String
 kangaroo x1 v1 x2 v2
-  | y == fromIntegral (round y) = "YES"
+  | y == fromIntegral (round y) && y > 0 = "YES"
   | otherwise = "NO"
   where
     y :: Float
@@ -25,5 +25,8 @@ kangaroo x1 v1 x2 v2
 
 main = do
   print (kangaroo 2 1 1 2) -- should be 'YES'
+  print "should be YES"
   print (kangaroo 0 3 4 2) -- should be 'YES'
+  print "should be YES"
   print (kangaroo 0 2 5 3) -- should be 'NO'
+  print "should be NO"
