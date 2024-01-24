@@ -12,19 +12,11 @@
 -- go through the array
 
 divisibleSumPairs :: Int -> Int -> [Int] -> Int
-divisibleSumPairs n k ar
- | 
-
-isPair :: Int -> Int-> [Int] -> Int
-isPair k h ar = foldl compare 0 ar
+divisibleSumPairs n k ar = length $ filter (\(a,b) -> ((a + b) `rem` k) == 0) p
  where
-  compare acc cur
-   | (h + cur) `rem` k == 0 = acc + 1
-   | otherwise = acc
+  p = [(ar!!i, ar!!j) | i <- [0..(n - 1)], j <- [0..(n - 1)], i < j]
 
 
 main = do
- print (isPair 3 1 [3, 2, 6, 1, 2]) -- should be '2'
- print "should be 2"
  print (divisibleSumPairs 6 3 [1, 3, 2, 6, 1, 2]) -- should be '5'
  print "should be 5"  
