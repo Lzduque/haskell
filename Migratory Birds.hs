@@ -1,7 +1,12 @@
-migratoryBirds arr = do
-    -- Write your code here
+import Data.List as L
 
+-- migratoryBirds :: [Int] -> Int
+migratoryBirds arr = head $ L.foldl longest [] $ L.group $ L.sort arr
+ where
+  longest acc cur
+   | length cur > length acc = cur
+   | otherwise = acc
 
 main = do
- print (divisibleSumPairs 6 3 [1, 3, 2, 6, 1, 2]) -- should be '5'
- print "should be 5"  
+ print (migratoryBirds [1,4,4,4,5,3]) -- should be '4'
+ print "should be 4"  
