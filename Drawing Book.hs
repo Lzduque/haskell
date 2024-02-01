@@ -3,8 +3,10 @@ pageCount n p
  | pagesFromFront n' p' > pagesFromBack n' p' = pagesFromBack n' p'
  | otherwise = pagesFromFront n' p'
  where
-  n' = fromIntegral n
-  p' = fromIntegral n
+  p' = fromIntegral p
+  n'
+   | n `rem` 2 == 0 = fromIntegral (n + 1)
+   | otherwise = fromIntegral n
 
 pagesFromFront :: (RealFrac a, Num a) => a -> a -> Int
 pagesFromFront n p = ceiling ((p - 1) / 2)
@@ -19,3 +21,5 @@ main = do
   print "should be 1"
   print (pageCount 5 4) -- should be '0'
   print "should be 0"
+  print (pageCount 6 4) -- should be '1'
+  print "should be 1"
