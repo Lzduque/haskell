@@ -1,13 +1,16 @@
 pageCount :: Int -> Int -> Int
 pageCount n p
- | pagesFromFront n p > pagesFromBack n p = pagesFromFront n p
- | otherwise = pagesFromBack n p
+ | pagesFromFront n' p' > pagesFromBack n' p' = pagesFromBack n' p'
+ | otherwise = pagesFromFront n' p'
+ where
+  n' = fromIntegral n
+  p' = fromIntegral n
 
-pagesFromFront :: Int -> Int -> Int
-pagesFromFront n p = ceiling ((p - 1) `div` 2)
+pagesFromFront :: (RealFrac a, Num a) => a -> a -> Int
+pagesFromFront n p = ceiling ((p - 1) / 2)
 
-pagesFromBack :: Int -> Int -> Int
-pagesFromBack n p = ceiling ((n - p) `div` 2)
+pagesFromBack :: (RealFrac a, Num a) => a -> a -> Int
+pagesFromBack n p = ceiling ((n - p) / 2)
 
 main = do
   print (pageCount 6 2) -- should be '1'
