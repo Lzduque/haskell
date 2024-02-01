@@ -1,18 +1,20 @@
+import Data.List.Split as L
+
 pageCount :: Int -> Int -> Int
 pageCount n p
- | pagesFromFront n' p' > pagesFromBack n' p' = pagesFromBack n' p'
- | otherwise = pagesFromFront n' p'
+ | distFront > distBack = distBack
+ | otherwise = distFront
  where
-  p' = fromIntegral p
-  n'
-   | n `rem` 2 == 0 = fromIntegral (n + 1)
-   | otherwise = fromIntegral n
+  arr = L.chunksOf 2 [0..n]
+  i = foldl (\acc cur -> p `elem`cur) (0,0) arr
+  distFront = 1 - i
+  distBack = n - i
 
-pagesFromFront :: (RealFrac a, Num a) => a -> a -> Int
-pagesFromFront n p = ceiling ((p - 1) / 2)
+findElem :: (Int, Int) -> [Int] -> Int -> (Int, Int)
+findElem acc cur p
+ | p `elem`cur == True = ()
 
-pagesFromBack :: (RealFrac a, Num a) => a -> a -> Int
-pagesFromBack n p = ceiling ((n - p) / 2)
+[[0,1],[2,3],[4,5],[6]]
 
 main = do
   print (pageCount 6 2) -- should be '1'
