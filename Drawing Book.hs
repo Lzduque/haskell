@@ -1,7 +1,7 @@
 pageCount :: Int -> Int -> Int
 pageCount n p = min distFront distBack
   where
-    distFront = ceiling ((p' - firstPage) / 2) 
+    distFront = ceiling ((p' - firstPage) / 2)
     distBack
      | odd n = floor ((n' - p') / 2)
      | otherwise = ceiling ((n' - p') / 2)
