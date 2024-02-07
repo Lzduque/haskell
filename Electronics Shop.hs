@@ -11,6 +11,15 @@ getMoneySpent keyboards drives b = foldl compareKeyboards (-1) keyboards
           | cur + y <= b && cur + y > acc = cur + y
           | otherwise = x
 
+
+-- [x*2 | x <- [1..10], x*2 >= 12]
+
+getMoneySpent' :: [Int] -> [Int] -> Int -> Int
+getMoneySpent' keyboards drives b = maximum $ filter (\ x -> x <= b) $ map sum $ possibilities 
+  where
+    possibilities = [ [x,y] | x <- keyboards, y <- drives ]
+
+
 main = do
   print (getMoneySpent [3,1] [5,2,8] 9)
   print "should be 9"
@@ -18,3 +27,9 @@ main = do
   print (getMoneySpent [4] [5] 5)
   print "should be -1"
   print ((getMoneySpent [4] [5] 5) == -1)
+  print (getMoneySpent' [3,1] [5,2,8] 9)
+  print "should be 9"
+  print ((getMoneySpent' [3,1] [5,2,8] 9) == 9)
+  print (getMoneySpent' [4] [5] 5)
+  print "should be -1"
+  print ((getMoneySpent' [4] [5] 5) == -1)
