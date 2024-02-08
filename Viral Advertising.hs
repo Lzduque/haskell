@@ -1,9 +1,12 @@
 viralAdvertising :: Int -> Int
-viralAdvertising n = (foldl likes 5 days)
+viralAdvertising n = snd (foldl likes (2,2) days)
   where
-    days = [1 .. n]
-    likes acc cur = (floor ((fromIntegral acc) / 2)) * (3)
+    days = [2 .. n]
+    likes (liked, total) _ = ((floor ((fromIntegral (liked * 3)) / 2)), (floor ((fromIntegral (liked * 3)) / 2)) + total)
 
+-- first day -> floored half of the people that recieved  -->2
+-- second day -> floored half of that (acc) * 3 + that (acc)  --> 3 + 2 = 5
+-- thrid day -> floored half of that (acc) * 3 + that (acc)  --> 6 + 5 = 11
 
 main = do
   print (viralAdvertising 5)
